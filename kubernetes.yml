@@ -13,7 +13,7 @@ items:
     name: discourse
   spec:
     ports:
-    - name: "80"
+    - name: http
       port: 80
       targetPort: 3000
     selector:
@@ -226,6 +226,8 @@ items:
           - mountPath: /bitnami
             name: bitnamidockerdiscourse-redis-data
         restartPolicy: Always
+        securityContext:
+          fsGroup: 0
         volumes:
         - name: bitnamidockerdiscourse-redis-data
           persistentVolumeClaim:
@@ -275,7 +277,7 @@ items:
           - name: DISCOURSE_HOST
             value: discourse
           - name: DISCOURSE_PORT
-            value: "3000"
+            value: "80"
           - name: DISCOURSE_POSTGRESQL_NAME
             value: bitnami_application
           - name: DISCOURSE_POSTGRESQL_PASSWORD
